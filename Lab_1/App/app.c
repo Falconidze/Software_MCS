@@ -14,6 +14,7 @@ void app_run()
 		HAL_Delay(100);
 		GPIOD->ODR = 0x8000;
 		HAL_Delay(50);
+		GPIOD->ODR = 0x0000;
 		for(int i = 0; i < 3; i++)
 		{		
 			HAL_Delay(500);
