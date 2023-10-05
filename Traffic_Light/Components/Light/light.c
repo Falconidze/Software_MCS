@@ -15,7 +15,7 @@ void light_set_color_state(light_color_e_t color, light_state_e_t state)
 			HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, (GPIO_PinState)state);
 			break;
 		}
-		case light_yellow:
+		case light_yelow:
 		{
 			HAL_GPIO_WritePin(LED_YELOW_GPIO_Port, LED_YELOW_Pin, (GPIO_PinState)state);
 			break;

@@ -10,7 +10,7 @@ typedef enum
 typedef enum
 {
 	light_red,
-	light_yellow,
+	light_yelow,
 	light_green,
 	light_all,
 }light_color_e_t;

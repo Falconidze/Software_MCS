@@ -1,23 +1,45 @@
-#include "gpio.h"
 #include "button.h"
+#include <stdint.h>
+#include "gpio.h"
+#include "stdbool.h"
 
-bool button_isPressed = false;
+static button_pressed_cb button_pressed;
+static bool button_is_pressed = false;
+static bool button_is_enabled = true;
 
-void button_disable(void)
+void button_init(button_pressed_cb p_button_pressed_cb)
 {
-	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+	button_pressed = p_button_pressed_cb;
 }
 
-void button_enable(void)
-{
-	button_isPressed = false;
-	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-}
+
 
 void HAL_GPIO_EXTI_Callback(uint16_t pin)
 {
-	if(pin == GPIO_PIN_0)
+	if(pin == BUTTON_Pin)
 	{
-		button_isPressed = true;
+		if (button_is_enabled == true)
+		{
+			button_pressed();
+			button_is_enabled = false;
+		}
+		else 
+		{
+			button_is_pressed = true;
+		}
+	}
+}
+
+void button_check(void)
+{
+	if (button_is_pressed == true)
+	{
+		button_pressed();
+		button_is_pressed = false;
+		button_is_enabled = false;
+	}
+	else
+	{		
+		button_is_enabled = true;
 	}
 }
